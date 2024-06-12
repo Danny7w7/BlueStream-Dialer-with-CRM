@@ -1,0 +1,60 @@
+<!-- {% load static %} -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>BlueAI</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="{% static 'css/index/style.css' %}">
+    </head>
+
+    <body>
+        <header class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    <img src="https://agent-2024.lapeira.com/img/blue.png" width="60px">
+                </div>
+                <div class="col-8">
+                    <p class="dancing-script-text text-center mt-2">BlueAI</p>
+                </div>
+            </div>
+        </header>
+        <main class="row">
+            <div class="col-2"></div>
+            <div class="col-8 chat-box">
+                <div class="d-flex justify-content-end">
+                    <p class="message-box ms-5">Hola!</p>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <p class="message-box me-5">Hola papabello, estoy aqui para ayudarte</p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <p class="message-box ms-5">Papi necesito que me ayudes con una tabuel ahi, hazme el cruce</p>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <p class="message-box me-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae voluptatibus placeat maxime nihil, earum iusto praesentium ut similique repudiandae laborum quos magni quae obcaecati eius assumenda. Ab, dolorem esse quibusdam doloremque earum veniam maiores rem impedit sit placeat quis neque nihil accusamus ducimus id fuga aliquid ullam veritatis nostrum ad perferendis et commodi. Vitae molestiae facere perferendis quisquam! Maxime, nisi aut. Dignissimos facere ullam fuga nobis! Consectetur numquam error architecto, sint hic eaque, quidem est, debitis cumque odit autem cupiditate aperiam. Consequatur earum ducimus laudantium dolor ab labore incidunt, dignissimos sunt, assumenda, nostrum quia dolorum! Minima quo corporis quasi quas.e</p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <p class="message-box ms-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus pariatur facilis nobis velit quod! Tempore, doloremque dolore officiis reprehenderit obcaecati, a esse quis suscipit velit nihil laborum possimus eos iste asperiores porro nulla at illo inventore eaque aperiam ea, atque eligendi optio vel! Corrupti enim et obcaecati illo labore molestiae minima officiis accusamus reiciendis, veritatis iure voluptates laboriosam laborum deleniti tenetur iste laudantium! Voluptatum incidunt voluptate hic temporibus ipsum at aperiam perspiciatis laudantium, aliquid magni quasi! Pariatur dignissimos similique autem dolores dolorem ab porro commodi doloribus a? Earum quibusdam ipsa dicta. Magni nobis maiores iusto aliquam sunt, repellendus obcaecati officiis.</p>
+                </div>
+            </div>
+        </main>
+        <footer class="text-center mt-3">
+            <div class="container-text-input">
+                <textarea class="input-text" id="message" rows="2"></textarea>
+                <button class="icon-button" onclick="sendMessage()">
+                     <img src="{% static 'img/send_icon.png' %}" width="33">
+                </button>
+            </div>
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" ></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous" ></script>
+        <script src="{% static 'js/index.js' %}"></script>
+    </body>
+</html>

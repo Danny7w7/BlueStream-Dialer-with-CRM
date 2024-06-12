@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #F0F0F0;
+}
+main{
+    height: 72%;
+    overflow: auto;
+}
+
+.chat-box{
+}
+
+.message-box{
+    color: white;
+    background: rgb(104,59,189);
+    background: linear-gradient(56deg, rgba(104,59,189,1) 0%, rgba(212,38,250,1) 100%);
+    border-radius: 5px;
+    padding: 1%;
+    font-weight: bold;
+    font-style: italic;
+}
+.dancing-script-text {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 50px;
+}
+.input-text{
+    margin-left: 3%;
+    width: 93%;
+    height: 15%;
+    resize: none;
+    border: 0px solid;
+    outline: none;
+}
+.container-text-input{
+    display: flex;
+    border-radius: 40px;
+    margin: auto;
+    border: solid 1px black;
+    justify-self: center;
+    width: 70%;
+    align-items: center;
+}
+.icon-button{
+    border: solid 0px;
+    background-color: transparent;
+}
