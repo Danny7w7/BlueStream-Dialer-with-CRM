@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -16,7 +16,9 @@
         <header class="container-fluid">
             <div class="row">
                 <div class="col-2">
-                    <img src="https://agent-2024.lapeira.com/img/blue.png" width="60px">
+                    <a class="btn btn-outline-secondary pt-2 pb-2" data-bs-toggle="offcanvas" href="#sidebar" role="button" aria-controls="offcanvasExample">
+                        <img class="pb-1" src="{% static 'img/menu_icon.png' %}" width="20">
+                    </a>
                 </div>
                 <div class="col-8">
                     <p class="dancing-script-text text-center mt-2">BlueAI</p>
@@ -25,22 +27,7 @@
         </header>
         <main class="row">
             <div class="col-2"></div>
-            <div class="col-8 chat-box">
-                <div class="d-flex justify-content-end">
-                    <p class="message-box ms-5">Hola!</p>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <p class="message-box me-5">Hola papabello, estoy aqui para ayudarte</p>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <p class="message-box ms-5">Papi necesito que me ayudes con una tabuel ahi, hazme el cruce</p>
-                </div>
-                <div class="d-flex justify-content-start">
-                    <p class="message-box me-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae voluptatibus placeat maxime nihil, earum iusto praesentium ut similique repudiandae laborum quos magni quae obcaecati eius assumenda. Ab, dolorem esse quibusdam doloremque earum veniam maiores rem impedit sit placeat quis neque nihil accusamus ducimus id fuga aliquid ullam veritatis nostrum ad perferendis et commodi. Vitae molestiae facere perferendis quisquam! Maxime, nisi aut. Dignissimos facere ullam fuga nobis! Consectetur numquam error architecto, sint hic eaque, quidem est, debitis cumque odit autem cupiditate aperiam. Consequatur earum ducimus laudantium dolor ab labore incidunt, dignissimos sunt, assumenda, nostrum quia dolorum! Minima quo corporis quasi quas.e</p>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <p class="message-box ms-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus pariatur facilis nobis velit quod! Tempore, doloremque dolore officiis reprehenderit obcaecati, a esse quis suscipit velit nihil laborum possimus eos iste asperiores porro nulla at illo inventore eaque aperiam ea, atque eligendi optio vel! Corrupti enim et obcaecati illo labore molestiae minima officiis accusamus reiciendis, veritatis iure voluptates laboriosam laborum deleniti tenetur iste laudantium! Voluptatum incidunt voluptate hic temporibus ipsum at aperiam perspiciatis laudantium, aliquid magni quasi! Pariatur dignissimos similique autem dolores dolorem ab porro commodi doloribus a? Earum quibusdam ipsa dicta. Magni nobis maiores iusto aliquam sunt, repellendus obcaecati officiis.</p>
-                </div>
+            <div class="col-8 chat-box" id="chat-box">
             </div>
         </main>
         <footer class="text-center mt-3">
@@ -51,6 +38,20 @@
                 </button>
             </div>
         </footer>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Chats</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="list-group">
+                    {% for chat in chats %}
+                    <button type="button" class="list-group-item list-group-item-action">{{chat.name}}</button>
+                    {% endfor %}
+                    <!-- Boton activo <button type="button" class="list-group-item list-group-item-action active">Cras justo odio</button> -->
+                  </div>
+            </div>
+          </div>
         <!-- Bootstrap JavaScript Libraries -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" ></script>
 

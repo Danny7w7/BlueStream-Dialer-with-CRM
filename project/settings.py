@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from os import path
-import os
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
+
+import os
 
 load_dotenv()
 
@@ -33,7 +35,7 @@ SECRET_KEY = 'django-insecure-4#ke3jx+rq#4xhysfw%e5+$ss3rg(crfsv9qwsf6x0xbj@tqmb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'BlueAI'
+    'BlueAI',
 ]
 
 # Static Config
@@ -58,7 +60,7 @@ else:
   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 #Configuration to use own user model
-AUTH_USER_MODEL = 'BlueAI.User'  
+AUTH_USER_MODEL = 'BlueAI.Users'  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,7 +137,15 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+# Lista de idiomas soportados
+LANGUAGES = [
+    ('en', _('English')),
+    ('es', _('Spanish')),
+]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -147,3 +157,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
