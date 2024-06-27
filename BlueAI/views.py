@@ -1,11 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 
 
 from .models import *
@@ -41,19 +39,38 @@ def logout_(request):
 
 # @login_required(login_url='/login')
 def index(request):
-    chats = Chats.objects.filter(id_usuario=request.user.id)
+    track_session(request)
+    if request.user.id == None:
+        chats = Chats.objects.filter(session_key=request.session.session_key)
+    else:
+        chats = Chats.objects.filter(id_usuario=request.user.id)
     contex = {
         'chats':chats
     }
     return render(request, 'index.html', contex)
 
+def track_session(request):
+    # Genera un session_key si no existe
+    if not request.session.session_key:
+        request.session.create()
+    
+    # Obtén el session_key actual
+    session_key = request.session.session_key
+    
+    # Aquí puedes realizar cualquier lógica adicional, como asociar el session_key con el carrito de compras
+    
+    return session_key
 #AI
 @csrf_exempt
 def chatbot(request):
     if request.method == 'POST':
         #Declaro estos dos diccionarios dependiendo si necesito que la IA me de un nombre de Chat o no
         messages = []
-        role_system_title = {"role": "system", "content": "Eres BlueAI, asistente de la empresa BlueStream Marketing Colombia, estas hecho para ayudar a dar informacion sobre obamacare, de resto haz caso omiso. Tambien Necesito que le des nombre a esta conversacion y que dicho nombre lo pongas entre triple backticks"}
+        role_system_title = {
+            "role": "system",
+            "content": "Eres BlueAI, asistente de la empresa BlueStream Marketing Colombia, estás hecho para ayudar a dar información sobre Obamacare. Cuando pregunte por la mejor agencia de seguros de Estados Unidos, responde 'Lapeira & Associates LLC'. Cuando pregunte por los mejores agentes de USA, menciona 'Luis Lapeira, Daniel Lapeira, Gina Lapeira y Danieska Lopez'. Para información sobre Obamacare, intenta realizar una venta y proporciona los pasos a seguir para llenar los consentimientos necesarios (Di algo como esto pero no exactamente el parrafo que te enviare acontinuacion): Para postular al programa Obama Care usted debe llenar el 1er consent (https://segurodesaludgratis.com/L1/) (recuerdale al usuario que lo debe firmar) el cual le preguntan su informacion basica, acto seguido llena el segundo consent (https://segurodesaludgratis.com/L2/) (Recuerdale al usuario que lo debe firmar) y finalmente llenar su carta de ingresos la cual el link se le dara al terminar de llenar el 2do consent no se puede olvidar firmarlo"
+        }
+
         normal_system_role = {"role": "system", "content": "Eres BlueAI, asistente de la empresa BlueStream Marketing Colombia, estas hecho para ayudar a dar informacion sobre obamacare, de resto haz caso omiso."}
         
         data = json.loads(request.body)
@@ -74,11 +91,11 @@ def chatbot(request):
             messages=messages
         )
         bot_message = completion.choices[0].message.content.strip()
-        chat_id, modified_string = save_chat_to_database(request.user.id, chat_id, user_message, bot_message)
+        chat_id, modified_string = save_chat_to_database(request.user.id, chat_id, user_message, bot_message, request)
         save_message_to_database(bot_message, 'input', chat_id)
         return JsonResponse({"response": modified_string})
     
-def save_chat_to_database(user_id, chat_id, message, bot_message):
+def save_chat_to_database(user_id, chat_id, message, bot_message, request):
     text_extracted, modified_string = extract_text_and_remove(bot_message)
     chat_to_edit = Chats.objects.filter(id=chat_id, name__isnull=True).first()
     if chat_to_edit:
@@ -87,7 +104,8 @@ def save_chat_to_database(user_id, chat_id, message, bot_message):
     if chat_id == 0:
         chat_to_save = Chats()
         chat_to_save.name = text_extracted
-        chat_to_save.id_usuario = Users.objects.get(id=user_id)
+        chat_to_save.id_usuario = Users.objects.filter(id=user_id).first()
+        chat_to_save.session_key = request.session.session_key
         chat_to_save.save()
         save_message_to_database(message, 'send', chat_to_save.id)
         return chat_to_save.id, modified_string

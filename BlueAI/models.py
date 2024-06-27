@@ -10,9 +10,10 @@ class Users(AbstractUser):
         return self.username
     
 class Chats(models.Model):
-    id_usuario = models.ForeignKey(Users, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, null=True)
     start_date = models.DateField(auto_now=True)
+    session_key = models.TextField() 
 
 class Messages(models.Model):
     chat = models.ForeignKey(Chats, on_delete=models.CASCADE)

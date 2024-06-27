@@ -21,7 +21,7 @@ from BlueAI import views
 
 urlpatterns = [
     #Auth
-    path('login/', views.login_, name='login'),
+    # path('login/', views.login_, name='login'), Cuando esto se use para los agentes el Login sera Necesario
     path('logout/', views.logout_, name='logout'),
 
     path('admin/', admin.site.urls),
