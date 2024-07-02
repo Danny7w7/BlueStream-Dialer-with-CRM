@@ -34,10 +34,10 @@ STATIC_DIR = path.join(BASE_DIR, 'static')
 SECRET_KEY = 'django-insecure-4#ke3jx+rq#4xhysfw%e5+$ss3rg(crfsv9qwsf6x0xbj@tqmb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://blueai.lapeira.com']
+ALLOWED_HOSTS = ['www.blueai.lapeira.com', 'blueai.lapeira.com']
 
 # Application definition
 
@@ -51,14 +51,6 @@ INSTALLED_APPS = [
     'BlueAI',
 ]
 
-# Static Config
-BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_DIR = path.join(BASE_DIR, 'static')
-STATIC_URL = 'static/'
-if DEBUG:
-  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-else:
-  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 #Configuration to use own user model
 AUTH_USER_MODEL = 'BlueAI.Users'  
@@ -78,8 +70,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 ROOT_URLCONF = 'project.urls'
 
-# CSRF_TRUSTED_ORIGINS = ['*']
-ALLOWED_HOSTS = ['*']
 CSRF_COOKIE_SECURE = True
 
 TEMPLATES = [
@@ -107,11 +97,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bluesteam_platform_db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
@@ -141,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
@@ -159,6 +149,7 @@ LANGUAGES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# Static Config
 STATIC_URL = 'static/'
 if DEBUG:
   STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

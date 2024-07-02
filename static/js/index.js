@@ -14,6 +14,7 @@ async function sendMessage() {
     const data = await response.json();
     addMessageInTheBox(message, true)
     addMessageInTheBox(data.response, false)
+    clearInput()
 }
 
 function addMessageInTheBox(message, send) {
@@ -39,4 +40,8 @@ function hasMessagesInChatBox() {
     // Devuelve 0 si chatBoxDiv no tiene mensajes, de lo contrario devuelve la ID
     // EL 1 SE TIENE QUE CAMBIAR AL HACER LA FUNCION DE QUE TE CARGUE LOS DIFERENTES CHATS
     return chatBoxDiv.children.length === 0 ? 0 : 1;
+}
+
+function clearInput(){
+    document.getElementById('message').value = ''
 }

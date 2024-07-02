@@ -20,3 +20,6 @@ class Messages(models.Model):
     message = models.TextField()
     send_or_input = models.CharField(max_length=5)
     date_send = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.message
