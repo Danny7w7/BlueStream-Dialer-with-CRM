@@ -18,20 +18,39 @@ async function sendMessage() {
 }
 
 function addMessageInTheBox(message, send) {
-    chatBoxDiv  = document.getElementById('chat-box')
-    // Creo un nuevo div con las clases 'd-flex' y 'justify-content-end'
+    const chatBoxDiv = document.getElementById('chat-box');
+
+    // Crear un nuevo div con las clases 'd-flex' y 'justify-content-end' o 'justify-content-start'
     const messageBoxDiv = document.createElement('div');
     messageBoxDiv.classList.add('d-flex', send ? 'justify-content-end' : 'justify-content-start');
 
-    // Creo un nuevo p con las clases 'message-box' y 'me-5'
+    // Crear un nuevo p con las clases 'message-box' y 'me-5' o 'ms-5'
     const newP = document.createElement('p');
-    newP.classList.add('message-box', send ? 'ms-5': 'me-5');
-    newP.textContent = message;
+    newP.classList.add('message-box', send ? 'ms-5' : 'me-5');
 
-    // Agrego el p al nuevo div
+    // Verificar si el mensaje contiene un enlace de consentimiento y convertirlo a HTML
+    const linkPattern = /(Consent #\d \((https:\/\/segurodesaludgratis\.com\/[^\)]+)\)|www\.segurodesaludgratis\.com\/enlaces)/g;
+    message = message.replace(linkPattern, (match, p1, p2) => {
+        if (p2) {
+            return `Consent #1 (<a href="${p2}">Click aquí</a>)`;
+        } else {
+            return `<a href="https://${match}">${match}</a>`;
+        }
+    });
+
+    // Verificar si el mensaje contiene un número de teléfono y convertirlo a un enlace 'tel:'
+    const phonePattern = /18559636900/g;
+    message = message.replace(phonePattern, (match) => {
+        return `<a href="tel:${match}">${match}</a>`;
+    });
+
+    // Asignar el contenido HTML al nuevo p
+    newP.innerHTML = message;
+
+    // Agregar el p al nuevo div
     messageBoxDiv.appendChild(newP);
 
-    // Agrego el nuevo div al chat box
+    // Agregar el nuevo div al chat box
     chatBoxDiv.appendChild(messageBoxDiv);
 }
 
